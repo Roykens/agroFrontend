@@ -1,0 +1,26 @@
+<ion-view view-title="Connexion">
+  <ion-content has-header="true" has-subheader="true" class="padding">
+    <div class="item item-image" style ="margin-top: 5%;">
+      <img src="pictures/luck.jpg" alt="logo">
+    </div>
+    <form >
+      <div class="row responsive-sm">
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" placeholder="Votre Login" ng-model="data.login">
+          </label>
+        </div>
+        <div class="col">
+          <label class="item item-input">
+            <input type="password" placeholder="Votre mot de passe" ng-model="data.password">
+          </label>
+        </div>
+        <div class="col">
+          <button class="button button-block button-positive" type="submit"> 
+              <i class="ion-ios-unlocked"></i> connexion
+          </button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

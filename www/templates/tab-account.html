@@ -1,0 +1,84 @@
+<ion-view view-title="Choix du prodruit">
+	<ion-content has-header="true" has-subheader="true" class="tagline luck" style ="padding-top: 20%;">
+        <form ng-submit="">
+	      <div class="row responsive-sm">
+	        <div class="col">
+	          <label class="item item-input item-select">
+    			<div class="input-label">
+      				Region
+    			</div>
+    			<select  ng-model="regionx" ng-options="region as region.name for region in regions track by region.id">
+    			</select>
+  			  </label>
+	        </div>
+	        <div class="col" ng-controller="IonAutocompleteController">
+	          <label class="item item-input">
+                <ion-autocomplete ng-model="model"
+                                  item-value-key="name"
+                                  item-view-value-key="view"
+                                  items-method="getTestItems(query)"
+                                  items-method-value-key="items"
+                                  placeholder="Entrez La Ville ..."
+                                  items-clicked-method="itemsClicked(callback)"/>
+            </label>
+	        </div>
+	        <div class="col">
+	          <label class="item item-input item-select">
+    			<div class="input-label">
+      				Marches
+    			</div>
+			    <select>
+			      <option selected>Centrale</option>
+	        	  <option>Mokolo</option>
+	        	  <option>Mfoudi</option>
+	        	  <option>Madagascar</option>
+	        	  <option>Huitieme</option>
+			    </select>
+  			</label>
+	        </div>
+	        <div class="col">
+	          <label class="item item-input item-select">
+    			<div class="input-label">
+      				Categories
+    			</div>
+			    <select>
+			      <option selected>Legumes</option>
+	        	  <option>Cereales</option>
+	        	  <option>Feuilles verts</option>
+	        	  <option>Fruits</option>
+	        	  <option>Tubercules</option>
+			    </select>
+  			</label>
+	        </div>
+	        <div class="col">
+	          <label class="item item-input item-select">
+    			<div class="input-label">
+      				Produit
+    			</div>
+			    <select class="ion-input-select">
+			      <option selected>Mais</option>
+	        		<option>Haricots rouge</option>
+	        		<option>Haricots blancs</option>
+	        		<option>Riz</option>
+	        		<option>Arachides</option>
+	        		<option>Mils</option>
+	        		<option>Sorgot</option>
+			    </select>
+  			  </label>
+	        </div>
+	        <div class="col">
+	          <label class="item item-input">
+	        	<ion-autocomplete ng-model="model" />
+				<input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" items-method="callbackMethod(query)" autocomplete="off" />
+			  </label>
+	        </div>
+	        <div class="col">
+	          <button class="button button-block button-positive" type="submit">
+                 <i class="icon ion-social-euro"></i>Voir prix
+            </button>
+	        </div>
+	      </div>
+    </form> 
+  </ion-content>
+</ion-view>
+
