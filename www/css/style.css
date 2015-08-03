@@ -1,16 +1,6 @@
-/* Empty. Add your own CSS if you like */
 .splash{
 	/*background: url(../pictures/background.jpg) no-repeat center center fixed; */
 	background: url(../pictures/bg.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-
-.luck{
-	/*background: url(../pictures/background.jpg) no-repeat center center fixed; */
-	background: url(../pictures/background.jpg) no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;

@@ -1,0 +1,47 @@
+<ion-view view-title="Choix Produit">
+  <ion-content class="splash">
+    <form ng-submit="">
+	      <div class="row responsive-sm">
+	      	<div class="col">
+	          <label class="item item-input item-select">
+  			<div class="input-label">
+      				Categories
+    			</div>
+    			<select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id">
+    			</select>
+  			  </label>
+	        </div>
+	        <div class="col">
+	          <label class="item item-input item-select">
+        			<div class="input-label">
+          				Produit
+        			</div>
+			        <select ng-model="pro" ng-options="prod as prod.nom for prod in produits track by prod.id"></select>
+  			    </label>
+	        </div>
+          <div class="col" ng-controller="MyCtrl">
+              <label class="item item-input">
+                <span class="input-label">Ville</span>
+                <input type="search" placeholder="Ville" ng-change="search()" ng-model="data.search">
+              </label> 
+                <div class="list">
+                  <li class="item" ng-repeat="airline in data.airlines">{{airline.name}}</li>
+                </div>
+            </div>
+  	        <div class="col">
+  	          <label class="item item-input item-select">
+      			     <div class="input-label">
+        				    Marches
+      			     </div>
+			         <select ng-model="cat" ng-options="vil as vil.nom  for vil in villes"></select>
+  			     </label>
+	        </div>
+	        <div class="col">
+	          <button class="button button-block button-positive" type="submit">
+                 <i class="icon ion-social-euro"></i>Voir prix
+            </button>
+	        </div>
+	      </div>
+    </form>
+  </ion-content>
+</ion-view>

@@ -1,40 +1,68 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+  // Form data for the login modal
+  $scope.loginData = {};
 
-.controller('ChatsCtrl', function($scope) {
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
+  // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the login modal
+  $scope.login = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams) {
-  //$scope.chat = Chats.get($stateParams.chatId);
+.controller('PlaylistsCtrl', function($scope, $stateParams, Villes, Categories) {
+  $scope.playlists = [
+    { title: 'Reggae', id: 1 },
+    { title: 'Chill', id: 2 },
+    { title: 'Dubstep', id: 3 },
+    { title: 'Indie', id: 4 },
+    { title: 'Rap', id: 5 },
+    { title: 'Cowbell', id: 6 }
+  ];
 })
+.controller('PlaylistCtrl', function($scope, $stateParams, Villes, Categories, $log) {
+  $scope.villes = Villes.all();
+  $scope.produits = Villes.get(1);
+  $scope.categories = Categories.all();
+  var Categories = Categories.all();
+  $log.log(Categories[1].produits.length);
+  
+}).controller('MyCtrl', ['$scope', 'FlightDataService', function($scope, FlightDataService) {
 
-.controller('AccountCtrl', function($scope, Regions) {
-  $scope.regions = Regions.all();
-  $scope.reg = 'adama';
-})
-.controller('IonAutocompleteController', function($scope, Regions) {
-    $scope.model = "";
-    $scope.callbackValueModel = "";
-    var itemss = [];
-    var villes = [ "yaounde","douala","garoua","bafoussam","bertoua","maroua", "yagoua" ];
-    $scope.getTestItems = function (query) {
-      for(var cpt=0 ; cpt<villes.length ; cpt++) {
-          if(villes[cpt].indexOf(query) != -1)
-             itemss.push(villes[cpt]);
+  $scope.myTitle = 'Auto Complete Example';
+
+    $scope.data = { "airlines" : [], "search" : '' };
+
+    $scope.search = function() {
+
+      FlightDataService.searchAirlines($scope.data.search).then(
+        function(matches) {
+          $scope.data.airlines = matches;
         }
-        return {
-                items: [
-                        {id: "1", name:  "5", view: "yagoua: " },
-                        {id: "2", name:  "6", view: "yaounde: "},
-                        {id: "3", name:  "7", view: "yekie: " }]
-            };
-      };
-    $scope.callbackMethod = function (query) {
-    return Regions.all();
-  }
-    $scope.itemsClicked = function (callback) {
-        $scope.callbackValueModel = callback;
-      }
-});
+      )
+    }
+
+}]);
