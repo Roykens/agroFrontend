@@ -6,3 +6,7 @@
 	-o-background-size: cover;
 	background-size: cover;
 }
+
+li :hover{
+	background-color: skyblue;
+}

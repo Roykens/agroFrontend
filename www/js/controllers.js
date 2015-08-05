@@ -48,21 +48,30 @@ angular.module('starter.controllers', [])
   $scope.produits = Villes.get(1);
   $scope.categories = Categories.all();
   var Categories = Categories.all();
-  $log.log(Categories[1].produits.length);
+  //$log.log(Categories[1].produits.length);
   
-}).controller('MyCtrl', ['$scope', 'FlightDataService', function($scope, FlightDataService) {
-
-  $scope.myTitle = 'Auto Complete Example';
+}).controller('MyCtrl', ['$scope', 'FlightDataService','$log', function($scope, FlightDataService, $log) {
 
     $scope.data = { "airlines" : [], "search" : '' };
 
     $scope.search = function() {
-
-      FlightDataService.searchAirlines($scope.data.search).then(
-        function(matches) {
-          $scope.data.airlines = matches;
-        }
-      )
+      if($scope.data.search.length != 0){
+        //$log.log($scope.data.search.length);
+          FlightDataService.searchAirlines($scope.data.search).then(
+            function(matches) {
+              $scope.data.airlines = matches;
+            }
+        )
+      }else{
+        $scope.data.airlines = "";
+      }
     }
+
+    $scope.selectName = function (airline) {
+        $scope.data.search = airline.nom;
+        $scope.data.airlines = "";
+        //$log.log(airline.nom+"+++++++");
+   }
+    
 
 }]);
