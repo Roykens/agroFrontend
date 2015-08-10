@@ -1,5 +1,5 @@
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starter.services', 'ionic-datepicker','chart.js'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -69,6 +69,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'menuContent': {
         templateUrl: 'templates/playlist.html',
         controller: 'PlaylistCtrl'
+      }
+    }
+  }).state('app.evolution', {
+    url: '/evolution/:produitId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/evolution.html',
+        controller: 'LineCtrl'
       }
     }
   });

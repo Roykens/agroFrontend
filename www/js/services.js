@@ -65,8 +65,8 @@ angular.module('starter.services', []).factory('Villes', function() {
       return null;
     }
   };
-}).factory('Ville', function ($resource) {
-      return $resource("/api/villes/:id", {
+}).factory('Test', function ($resource) {
+      return $resource("http://localhost:8080/agroBackend//api/villes/:id", {
           id: '@id'
       }, {
           update: {

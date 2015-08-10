@@ -34,13 +34,11 @@
       			     <div class="input-label">
         				    Marches
       			     </div>
-			         <select ng-model="cat" ng-options="vil as vil.nom  for vil in villes"></select>
+			         <select ng-model="cat" ng-options="vil as vil.nom  for vil in vi"></select>
   			     </label>
 	        </div>
 	        <div class="col">
-	          <button class="button button-block button-positive" type="submit">
-                 <i class="icon ion-social-euro"></i>Voir prix
-            </button>
+              <a class="button button-block button-positive" href="#/app/playlists/{{cat.id}}">prix</a>
 	        </div>
 	      </div>
     </form>
