@@ -48,27 +48,31 @@ angular.module('starter.controllers', [])
       $scope.villes = Villes.all();
       $scope.produits = Villes.get(1);
       $scope.categories = Categories.all();
-      var Categories = Categories.all();/*
-     $http.get('http://localhost:8080/agroBackend/api/villes').then(function(data, status, config, headers) {
-        $scope.vi = data;
-        $log.log(data.length);
+      var Categories = Categories.all();
+     $http.get('/api/villes').then(function(resp) {
+        $scope.vi = resp.data;
+        console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
       }, function(err) {
-        console.error('ERR', err);
+        console.log('ERR', err);
           // err.status will contain the status code
-      });*/
+      });
+     /*
       var deps = Test.query(function () {
             $scope.vi = deps;
-        });
-      $scope.currentDate = new Date();
-$scope.title = "Custom Title";
+        });*/
 
-$scope.datePickerCallback = function (val) {
-    if(typeof(val)==='undefined'){      
-        console.log('Date not selected');
-    }else{
-        console.log('Selected date is : ', val);
-    }
-};
+      // utilisation de datepicker
+      $scope.currentDate = new Date();
+      $scope.title = "Custom Title";
+
+      $scope.datePickerCallback = function (val) {
+        if(typeof(val)==='undefined'){      
+            console.log('Date not selected');
+        }else{
+          console.log('Selected date is : ', val);
+        }
+    };
 
 }]).controller('MyCtrl', ['$scope', 'FlightDataService','$log', function($scope, FlightDataService, $log) {
 
