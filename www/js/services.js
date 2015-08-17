@@ -1,4 +1,4 @@
-var airlines = [
+/*var airlines = [
                   {"fs":"LCI","iata":"LF","icao":"LCI","nom":"Maroua ","active":true},
                   {"fs":"TGU","iata":"5U","icao":"TGU","nom":"Yaounde","active":true},
                   {"fs":"BT","iata":"BT","icao":"BTI","nom":"Doula","active":true},
@@ -26,14 +26,12 @@ var airlines = [
                   {"fs":"GL*","iata":"GL","nom":"Baham","active":true},
                   {"fs":"ATN","iata":"8C","icao":"ATN","nom":"Nkongsamba","active":true},
                   {"fs":"GU","iata":"GU","icao":"GUG","nom":"Batie","active":true},
-                  {"fs":"GHY","icao":"GHY","nom":"Ayos ","active":true}
-              ];
-
-airlines = airlines.sort(function(a, b) {
-
+                  {"fs":"GHY","icao":"GHY","nom":"Ayos ","active":true}*/
+var airlines = [];
+airlines = airlines.sort(function(a, b) 
+{
   var airlineA = a.nom.toLowerCase();
   var airlineB = b.nom.toLowerCase();
-
   if(airlineA > airlineB) return 1;
   if(airlineA < airlineB) return -1;
   return 0;
@@ -41,7 +39,7 @@ airlines = airlines.sort(function(a, b) {
 
 //console.log(airlines);
 
-angular.module('starter.services', []).factory('Villes', function() {
+angular.module('starter.services', []).factory('TestVilles', function() {
   var villes = [
       {id: 1, nom: 'Maroua', marches: { id:1 , nom: 'Centrale', id:2, nom: 'Abotoire' , id:3, nom: 'Artisanal' } },
       {id: 1, nom: 'Maroua', marches: { id:1 , nom: 'Centrale', id:2, nom: 'Abotoire' , id:3, nom: 'Artisanal' } },
@@ -65,8 +63,8 @@ angular.module('starter.services', []).factory('Villes', function() {
       return null;
     }
   };
-}).factory('Test', function ($resource) {
-      return $resource("http://localhost:8080/agroBackend//api/villes/:id", {
+}).factory('Villes', function ($resource) {
+      return $resource("/api/villes/:id", {
           id: '@id'
       }, {
           update: {
@@ -104,26 +102,29 @@ angular.module('starter.services', []).factory('Villes', function() {
             method: 'PUT'
         }
     })
-}).factory('FlightDataService', function($q, $timeout) {
+}).factory('FlightDataService', function($q, $timeout, $http) {
 
-    var searchAirlines = function(searchFilter) {
-         
-        console.log('Searching airlines for ' + searchFilter);
-
-        var deferred = $q.defer();
-
-      var matches = airlines.filter( function(airline) {
-        if(airline.nom.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1 ) return true;
-      })
-
-        $timeout( function(){
-        
+    var searchAirlines = function(searchFilter) 
+    {
+          //console.log('Searching airlines for ' + searchFilter);
+          var deferred = $q.defer();
+          $http.get('/api/villes').then(function(resp) 
+          {
+            airlines = resp.data;
+            console.log('Success', resp);
+          }, function(err) {
+            console.log('ERR', err);
+          });
+          var matches = airlines.filter( function(airline) 
+          {
+            if(airline.nom.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1 ) return true;
+          })
+         $timeout( function()
+         {
            deferred.resolve( matches );
-
-        }, 100);
+          }, 100);
 
         return deferred.promise;
-
     };
 
     return {

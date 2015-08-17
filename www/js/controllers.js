@@ -43,26 +43,39 @@ angular.module('starter.controllers', [])
     { title: 'Cowbell', id: 6 }
   ];
 })
-.controller('PlaylistCtrl', ['$scope', '$stateParams', 'Villes', 'Categories', '$log','$http','Test',
-    function($scope, $stateParams, Villes, Categories, $log, $http, Test) {
-      $scope.villes = Villes.all();
-      $scope.produits = Villes.get(1);
-      $scope.categories = Categories.all();
-      var Categories = Categories.all();
-     $http.get('/api/villes').then(function(resp) {
-        $scope.vi = resp.data;
+.controller('PlaylistCtrl', ['$scope', '$stateParams', 'Villes', 'Categories', '$log','$http',
+    function($scope, $stateParams, Villes, Categories, $log, $http) {
+
+      //recuperation des nom des Categories
+      $http.get('/api/categories').then(function(resp) {
+        $scope.categories = resp.data;
         console.log('Success', resp);
-        // For JSON responses, resp.data contains the result
       }, function(err) {
         console.log('ERR', err);
-          // err.status will contain the status code
       });
-     /*
-      var deps = Test.query(function () {
-            $scope.vi = deps;
-        });*/
 
-      // utilisation de datepicker
+      // la fonction qui permet de mettre a jour les produits
+      $scope.produits = "";
+      $scope.updateProduits = function (categories) 
+      {
+        $http.get('/api/categories'+ '/' +categories.id+ '/' +marches).then(function(resp) 
+        {
+          $scope.produits = resp.data;
+          console.log('Success', resp);
+        },function(err) 
+        {
+          console.log('ERR', err);
+        });
+      }
+
+      //recuperation des nom des villes
+     $http.get('/api/villes').then(function(resp) {
+        $scope.villes = resp.data;
+        console.log('Success', resp);
+      }, function(err) {
+        console.log('ERR', err);
+      });
+
       $scope.currentDate = new Date();
       $scope.title = "Custom Title";
 
@@ -80,7 +93,6 @@ angular.module('starter.controllers', [])
 
     $scope.search = function() {
       if($scope.data.search.length != 0){
-        //$log.log($scope.data.search.length);
           FlightDataService.searchAirlines($scope.data.search).then(
             function(matches) {
               $scope.data.airlines = matches;
@@ -94,7 +106,6 @@ angular.module('starter.controllers', [])
     $scope.selectName = function (airline) {
         $scope.data.search = airline.nom;
         $scope.data.airlines = "";
-        //$log.log(airline.nom+"+++++++");
    }
     
     }]).controller("LineCtrl", ['$scope', '$timeout', function ($scope, $timeout) {

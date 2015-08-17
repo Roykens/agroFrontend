@@ -7,7 +7,7 @@
   			  <div class="input-label">
       				Categories
     			</div>
-    			<select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id">
+    			<select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id" on-change="updateProduits(cat)">
     			</select>
   			  </label>
 	        </div>
