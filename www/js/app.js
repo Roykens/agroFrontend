@@ -1,5 +1,5 @@
 
-angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starter.services', 'ionic-datepicker','chart.js'])
+angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers', 'starter.services', 'ionic-datepicker','chart.js'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -60,6 +60,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
         'menuContent': {
           templateUrl: 'templates/auto.html',
           controller: 'MyCtrl'
+        }
+      }
+    })
+  .state('app.map', {
+      url: '/map:playlistId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/map.html',
+          controller: 'MarkerRemoveCtrl'
         }
       }
     })

@@ -56,9 +56,11 @@ angular.module('starter.controllers', [])
 
       // la fonction qui permet de mettre a jour les produits
       $scope.produits = "";
-      $scope.updateProduits = function (categories) 
+      $scope.categorie = "";
+      $scope.updateProduits = function () 
       {
-        $http.get('/api/categories'+ '/' +categories.id+ '/' +marches).then(function(resp) 
+        console.log($scope.categorie.id);
+        $http.get('/api/categories/'+'6/'+'produits').then(function(resp) 
         {
           $scope.produits = resp.data;
           console.log('Success', resp);
@@ -71,10 +73,25 @@ angular.module('starter.controllers', [])
       //recuperation des nom des villes
      $http.get('/api/villes').then(function(resp) {
         $scope.villes = resp.data;
-        console.log('Success', resp);
+        //console.log('Success', resp);
       }, function(err) {
         console.log('ERR', err);
       });
+
+     // la fonction qui permet de mettre a jour les marches
+      //$scope.marches = "";
+      $scope.updateMarches = function () 
+      {
+        //console.log($scope.cat.id);
+        $http.get('/api/categories/'+'2/'+'marches').then(function(resp) 
+        {
+          $scope.marches = resp.data;
+          console.log('Success', resp);
+        },function(err) 
+        {
+          console.log('ERR', err);
+        });
+      }
 
       $scope.currentDate = new Date();
       $scope.title = "Custom Title";
@@ -87,7 +104,7 @@ angular.module('starter.controllers', [])
         }
     };
 
-}]).controller('MyCtrl', ['$scope', 'FlightDataService','$log', function($scope, FlightDataService, $log) {
+}]).controller('MyCtrl', ['$scope', 'FlightDataService','$log','$http', function($scope, FlightDataService, $log, $http) {
 
     $scope.data = { "airlines" : [], "search" : '' };
 
@@ -103,9 +120,19 @@ angular.module('starter.controllers', [])
       }
     }
 
-    $scope.selectName = function (airline) {
-        $scope.data.search = airline.nom;
+    $scope.selectName = function (ville) {
+        $scope.data.search = ville.nom;
         $scope.data.airlines = "";
+        console.log(ville.id);
+        console.log('/api/villes/'+ville.id+'/marches');
+        $http.get('/api/villes/'+ville.id+'/marches').then(function(resp) 
+        {
+          $scope.marches = resp.data;
+          console.log(resp.data);
+        },function(err) 
+        {
+          console.log('ERR', err);
+        });
    }
     
     }]).controller("LineCtrl", ['$scope', '$timeout', function ($scope, $timeout) {
@@ -148,4 +175,30 @@ angular.module('starter.controllers', [])
     ];
   }, 3000);
 
-}]);
+}]).controller('MarkerRemoveCtrl', function($scope, $ionicLoading) {
+
+  $scope.positions = [{
+    lat: 4.0473831,
+    lng: 9.6951812
+  }];
+
+  $scope.$on('mapInitialized', function(event, map) {
+    $scope.map = map;
+  });
+
+  $scope.centerOnMe= function(){
+  $scope.positions = [];
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      $scope.positions.push({lat: pos.k,lng: pos.B});
+      console.log(pos);
+      $scope.map.setCenter(pos);
+      $ionicLoading.hide();
+    });
+
+  };
+
+});

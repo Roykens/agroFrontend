@@ -1,0 +1,11 @@
+<ion-view view-title="MAP">
+    <ion-content scroll="false">
+    <button class="button button-icon ion-pinpoint" ng-click="centerOnMe()"></button>
+      <div class="mapWrap"  data-tap-disabled="true">
+        <map center="4.0473831,9.6951812" zoom="15"> 
+          <!-- ngRepeat: pos in positions -->
+          <marker ng-repeat=" pos in positions" position="{{pos.lat}},{{pos.lng}}"></marker>
+        </map> 
+      </div>
+    </ion-content>
+</ion-view>

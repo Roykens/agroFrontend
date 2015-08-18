@@ -7,7 +7,7 @@
   			  <div class="input-label">
       				Categories
     			</div>
-    			<select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id" on-change="updateProduits(cat)">
+    			<select ng-model="categorie" ng-options="cate as cate.nom for cate in categories track by cate.id" ng-change="updateProduits()" >
     			</select>
   			  </label>
 	        </div>
@@ -29,12 +29,12 @@
                   </li>
                 </div>
             </div>
-  	        <div class="col">
+  	        <div class="col" ng-controller="MyCtrl">
   	          <label class="item item-input item-select">
       			     <div class="input-label">
         				    Marches
       			     </div>
-			         <select ng-model="cat" ng-options="vil as vil.nom  for vil in vi"></select>
+			         <select ng-model="marche" ng-options="march as march.nom  for march in marches"></select>
   			     </label>
 	        </div>
 	        <div class="col">
