@@ -33,7 +33,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope, $stateParams, Villes, Categories) {
+.controller('PlaylistsCtrl', function($scope, $stateParams) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -43,8 +43,8 @@ angular.module('starter.controllers', [])
     { title: 'Cowbell', id: 6 }
   ];
 })
-.controller('PlaylistCtrl', ['$scope', '$stateParams', 'Villes', 'Categories', '$log','$http',
-    function($scope, $stateParams, Villes, Categories, $log, $http) {
+.controller('PlaylistCtrl', ['$scope', '$stateParams', '$log','$http', 'Villes',
+    function($scope, $stateParams, $log, $http, Villes) {
 
       //recuperation des nom des Categories
       $http.get('/api/categories').then(function(resp) {
@@ -56,14 +56,13 @@ angular.module('starter.controllers', [])
 
       // la fonction qui permet de mettre a jour les produits
       $scope.produits = "";
-      $scope.categorie = "";
-      $scope.updateProduits = function () 
-      {
-        console.log($scope.categorie.id);
-        $http.get('/api/categories/'+'6/'+'produits').then(function(resp) 
+      $scope.data = { "airlines" : [], "search" : '' };
+      $scope.updateProduits = function (categorie){
+        console.log('/api/categories/'+categorie.id+'/produits');
+        $http.get('/api/categories/'+categorie.id+'/produits').then(function(resp) 
         {
           $scope.produits = resp.data;
-          console.log('Success', resp);
+          //console.log('Success', resp);
         },function(err) 
         {
           console.log('ERR', err);
@@ -71,27 +70,37 @@ angular.module('starter.controllers', [])
       }
 
       //recuperation des nom des villes
-     $http.get('/api/villes').then(function(resp) {
-        $scope.villes = resp.data;
-        //console.log('Success', resp);
-      }, function(err) {
-        console.log('ERR', err);
-      });
 
-     // la fonction qui permet de mettre a jour les marches
-      //$scope.marches = "";
-      $scope.updateMarches = function () 
+      $scope.updateVilles = function (produit) 
       {
-        //console.log($scope.cat.id);
-        $http.get('/api/categories/'+'2/'+'marches').then(function(resp) 
+        console.log(produit.id);
+        $scope.search = function() {
+          if($scope.data.search.length != 0){
+            Villes.searchVilles($scope.data.search, produit.id).then(
+              function(matches) {
+                $scope.data.airlines = matches;
+              }
+           )
+          }else{
+            $scope.data.airlines = "";
+          }
+        }
+      }
+      // si selection une ville
+    $scope.selectName = function (ville, produit) {
+        $scope.data.search = ville.nom;
+        $scope.data.airlines = "";
+        console.log('/api/marches/'+produit.id+'/'+ville.id+'/marches');
+
+        //  mettre a jour les marches
+        $http.get('/api/marches/'+produit.id+'/'+ville.id+'/marches').then(function(resp) 
         {
           $scope.marches = resp.data;
           console.log('Success', resp);
-        },function(err) 
-        {
+        },function(err){
           console.log('ERR', err);
-        });
-      }
+        }); 
+    }
 
       $scope.currentDate = new Date();
       $scope.title = "Custom Title";
@@ -104,38 +113,7 @@ angular.module('starter.controllers', [])
         }
     };
 
-}]).controller('MyCtrl', ['$scope', 'FlightDataService','$log','$http', function($scope, FlightDataService, $log, $http) {
-
-    $scope.data = { "airlines" : [], "search" : '' };
-
-    $scope.search = function() {
-      if($scope.data.search.length != 0){
-          FlightDataService.searchAirlines($scope.data.search).then(
-            function(matches) {
-              $scope.data.airlines = matches;
-            }
-        )
-      }else{
-        $scope.data.airlines = "";
-      }
-    }
-
-    $scope.selectName = function (ville) {
-        $scope.data.search = ville.nom;
-        $scope.data.airlines = "";
-        console.log(ville.id);
-        console.log('/api/villes/'+ville.id+'/marches');
-        $http.get('/api/villes/'+ville.id+'/marches').then(function(resp) 
-        {
-          $scope.marches = resp.data;
-          console.log(resp.data);
-        },function(err) 
-        {
-          console.log('ERR', err);
-        });
-   }
-    
-    }]).controller("LineCtrl", ['$scope', '$timeout', function ($scope, $timeout) {
+}]).controller("LineCtrl", ['$scope', '$timeout', function ($scope, $timeout) {
 
   $scope.labels = ["lun", "mar", "mer", "jeu", "ven", "sam", "dim"];
   $scope.series = ['Cette Semaine ', 'Semaine Prec'];

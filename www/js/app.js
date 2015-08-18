@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers'
       }
     })
   .state('app.map', {
-      url: '/map:playlistId',
+      url: '/playlists/:playlistId/:id',
       views: {
         'menuContent': {
           templateUrl: 'templates/map.html',

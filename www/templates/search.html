@@ -5,9 +5,9 @@
 	      	<div class="col">
 	          <label class="item item-input item-select">
   			  <div class="input-label">
-      				Categories
+      				Categories {{ categorie.nom}}
     			</div>
-    			<select ng-model="categorie" ng-options="cate as cate.nom for cate in categories track by cate.id" ng-change="updateProduits()" >
+    			<select ng-model="categorie" ng-options="categorie as categorie.nom for categorie in categories track by categorie.id" ng-change="updateProduits(categorie)" >
     			</select>
   			  </label>
 	        </div>
@@ -16,20 +16,20 @@
         			<div class="input-label">
           				Produit
         			</div>
-			        <select ng-model="pro" ng-options="prod as prod.nom for prod in produits track by prod.id"></select>
+			        <select ng-model="produit" ng-options="produit as produit.nom for produit in produits track by produit.id" ng-change="updateVilles(produit)"></select>
   			    </label>
 	        </div>
-          <div class="col" ng-controller="MyCtrl">
+          <div class="col">
               <label class="item item-input">
                 <input type="text" placeholder="Ville" ng-change="search()" ng-model="data.search">
               </label> 
                 <div class="list">
                   <li class="item" ng-repeat="airline in data.airlines">
-                    <a ng-click="selectName(airline)">{{ airline.nom}}</a>
+                    <a ng-click="selectName(airline, produit)">{{ airline.nom}}</a>
                   </li>
                 </div>
             </div>
-  	        <div class="col" ng-controller="MyCtrl">
+  	        <div class="col">
   	          <label class="item item-input item-select">
       			     <div class="input-label">
         				    Marches
