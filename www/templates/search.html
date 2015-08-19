@@ -5,7 +5,7 @@
 	      	<div class="col">
 	          <label class="item item-input item-select">
   			  <div class="input-label">
-      				Categories {{ categorie.nom}}
+      				Categories
     			</div>
     			<select ng-model="categorie" ng-options="categorie as categorie.nom for categorie in categories track by categorie.id" ng-change="updateProduits(categorie)" >
     			</select>
@@ -21,7 +21,7 @@
 	        </div>
           <div class="col">
               <label class="item item-input">
-                <input type="text" placeholder="Ville" ng-change="search()" ng-model="data.search">
+                <input type="text" placeholder="Ville" required ng-change="search()" ng-model="data.search">
               </label> 
                 <div class="list">
                   <li class="item" ng-repeat="airline in data.airlines">
@@ -34,11 +34,11 @@
       			     <div class="input-label">
         				    Marches
       			     </div>
-			         <select ng-model="marche" ng-options="march as march.nom  for march in marches"></select>
+			         <select ng-model="marche" ng-options="marche as marche.nom  for marche in marches"></select>
   			     </label>
 	        </div>
-	        <div class="col">
-              <a class="button button-block button-positive" href="#/app/playlists/{{cat.id}}">prix</a>
+	        <div class="col" >
+              <a class="button button-block button-positive" href="#/app/playlists/{{produit.id}}/{{marche.id}}">prix</a>
 	        </div>
 	      </div>
     </form>

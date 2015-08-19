@@ -12,7 +12,6 @@ angular.module('starter.services', []).factory('Villes', function($q, $timeout, 
 
     var searchVilles = function(searchFilter, idProduit) 
     {
-          //console.log('Searching airlines for ' + searchFilter);
           var deferred = $q.defer();
 
           console.log('/api/produits/'+idProduit+'/villes');
@@ -20,7 +19,6 @@ angular.module('starter.services', []).factory('Villes', function($q, $timeout, 
           $http.get('/api/produits/'+idProduit+'/villes').then(function(resp) 
           {
             airlines = resp.data;
-            //console.log('Success', resp);
           }, function(err) {
             console.log('ERR', err);
           });
@@ -40,5 +38,15 @@ angular.module('starter.services', []).factory('Villes', function($q, $timeout, 
 
         searchVilles : searchVilles
 
+    }
+}).factory('Prix', function($q, $timeout, $http) {
+
+    return {
+        getProduit:function(idProduit){
+            return $http.get('api/produits/'+idProduit);
+        },
+        get:function(idmarche, idproduit){
+            return $http.get('/api/prix/'+idproduit+'/'+idmarche);
+        }
     }
 }); 

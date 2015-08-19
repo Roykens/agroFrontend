@@ -1,8 +1,9 @@
 <ion-view view-title="MAP">
     <ion-content scroll="false">
-    <button class="button button-icon ion-pinpoint" ng-click="centerOnMe()"> localiser moi</button>
-      <div class="mapWrap"  data-tap-disabled="true">
-        <map center="4.0473831,9.6951812" zoom="15"> 
+    <button class="button button-icon ion-pinpoint" ng-click="centerOnMe()">Me localiser</button>
+      <div class="mapWrap"  data-tap-disabled="true" ng-model="marche"> 
+        Marche : {{marche.nom}}
+        <map center="{{marche.latitude}},{{marche.longitude}}" zoom="15"> 
           <!-- ngRepeat: pos in positions -->
           <marker ng-repeat=" pos in positions" position="{{pos.lat}},{{pos.lng}}"></marker>
         </map> 

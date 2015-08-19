@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers'
       }
     })
   .state('app.map', {
-      url: '/playlists/:playlistId/:id',
+      url: '/playlists/:idmarche',
       views: {
         'menuContent': {
           templateUrl: 'templates/map.html',
@@ -73,11 +73,11 @@ angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers'
       }
     })
   .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/playlists/:idProduit/:idmarche',
     views: {
       'menuContent': {
         templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        controller: 'PlaylistsCtrl'
       }
     }
   }).state('app.evolution', {

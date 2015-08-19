@@ -1,20 +1,20 @@
 <ion-view view-title="PRIX">
-  <ion-content>
-    <h1>Mais</h1>
+  <ion-content ng-controller="PlaylistsCtrl">
+    <h1 ng-model="produitSelected"><center>{{produitSelected.nom | uppercase}}</center></h1>
     <div class="row responsive-sm">
-    	<ion-list>
+    	<ion-list ng-model="prixProduit">
           <div class="col">
-            <ion-item href="#">boite: 150</ion-item>
+            <ion-item href="#">le prix en {{produitSelected.conditionnement}}</ion-item>
           </div>
           <div class="col">
-            <ion-item href="#">sceau : 2000</ion-item>
+            <ion-item href="#">{{prixProduit.prix}}</ion-item>
           </div>
           <div class="col">
-            <ion-item href="#">Sac : 17000</ion-item>
+            <ion-item href="#">{{prixProduit.etatPrix}}</ion-item>
           </div>
 	    </ion-list>
-      <div class="col">
-          <a class="button button-block button-positive" href="#/app/playlists/{{cat.id}}/{cat.id}}">
+      <div class="col" ng-model="idmarche">
+          <a class="button button-block button-positive" href="#/app/playlists/{{idmarche}}">
             Voir le Marche sur la carte
           </a>
       </div>

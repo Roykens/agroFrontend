@@ -33,15 +33,33 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope, $stateParams) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('PlaylistsCtrl', function($scope, $stateParams, $http, Prix, Villes, $http) 
+{
+  $scope.idmarche = $stateParams.idmarche;
+
+  //console.log($stateParams.idProduit+'je suis la'+$stateParams.idmarche);
+
+  $http.get('api/produits/'+$stateParams.idProduit).then(function(resp){
+      $scope.produitSelected = resp.data;
+    },function(err){
+      console.log('ERR', err);
+  });
+
+  $http.get('/api/prix/'+$stateParams.idProduit+'/'+$stateParams.idmarche).then(function(resp){
+      $scope.prixProduit = resp.data;
+    },function(err){
+      console.log('ERR', err);
+  });
+/*
+  Prix.getProduit($stateParams.idProduit).success(function(data){
+          $scope.produitSelected = data.results;
+          //onsole.log('Success', resp);
+        });
+
+  Prix.get($stateParams.idmarche, $stateParams.idProduit).success(function(data){
+    $scope.prixProduit = data.results;
+  });
+*/
 })
 .controller('PlaylistCtrl', ['$scope', '$stateParams', '$log','$http', 'Villes',
     function($scope, $stateParams, $log, $http, Villes) {
@@ -49,7 +67,7 @@ angular.module('starter.controllers', [])
       //recuperation des nom des Categories
       $http.get('/api/categories').then(function(resp) {
         $scope.categories = resp.data;
-        console.log('Success', resp);
+        //console.log('Success', resp);
       }, function(err) {
         console.log('ERR', err);
       });
@@ -59,12 +77,10 @@ angular.module('starter.controllers', [])
       $scope.data = { "airlines" : [], "search" : '' };
       $scope.updateProduits = function (categorie){
         console.log('/api/categories/'+categorie.id+'/produits');
-        $http.get('/api/categories/'+categorie.id+'/produits').then(function(resp) 
-        {
+        $http.get('/api/categories/'+categorie.id+'/produits').then(function(resp){
           $scope.produits = resp.data;
           //console.log('Success', resp);
-        },function(err) 
-        {
+        },function(err){
           console.log('ERR', err);
         });
       }
@@ -73,17 +89,12 @@ angular.module('starter.controllers', [])
 
       $scope.updateVilles = function (produit) 
       {
-        console.log(produit.id);
         $scope.search = function() {
-          if($scope.data.search.length != 0){
             Villes.searchVilles($scope.data.search, produit.id).then(
               function(matches) {
                 $scope.data.airlines = matches;
               }
            )
-          }else{
-            $scope.data.airlines = "";
-          }
         }
       }
       // si selection une ville
@@ -153,7 +164,13 @@ angular.module('starter.controllers', [])
     ];
   }, 3000);
 
-}]).controller('MarkerRemoveCtrl', function($scope, $ionicLoading) {
+}]).controller('MarkerRemoveCtrl', function($scope, $ionicLoading, $http, $stateParams) {
+
+  $http.get('api/marches/'+$stateParams.idmarche).then(function(resp){
+      $scope.marche = resp.data;
+    },function(err){
+      console.log('ERR', err);
+  });
 
   $scope.positions = [{
     lat: 4.0473831,
