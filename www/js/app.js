@@ -1,5 +1,22 @@
+var translations = {
+    "en": {
+        "cat": "Cathegory",
+        "pro": "Product",
+        "pri": "See price",
+        "mac": "Market",
+        "vil": "Town"
+    },
+    "fr": {
+        "cat": "Categorie",
+        "pro": "Produit",
+        "pri": "Voir prix",
+        "mac": "Varche",
+        "vil": "Ville"
+    }
+  }
 
-angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers', 'starter.services', 'ionic-datepicker','chart.js'])
+
+angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMap', 'starter.controllers', 'starter.services', 'ionic-datepicker','chart.js'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,7 +34,14 @@ angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers'
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
+
+  for(lang in translations){
+    $translateProvider.translations(lang, translations[lang]);
+  }
+  
+  $translateProvider.preferredLanguage('en');
+
   $stateProvider
 
     .state('app', {
@@ -59,7 +83,7 @@ angular.module('starter', ['ionic', 'ngResource', 'ngMap', 'starter.controllers'
       views: {
         'menuContent': {
           templateUrl: 'templates/auto.html',
-          controller: 'MyCtrl'
+          controller: 'PlaylistCtrl'
         }
       }
     })

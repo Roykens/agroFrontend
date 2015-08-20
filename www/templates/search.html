@@ -1,5 +1,7 @@
 <ion-view view-title="Choix Produit">
   <ion-content class="splash" >
+  <button class="button button-clear" ng-click="ChangeLanguage('en')">EN</button>
+  <button class="button button-clear" ng-click="ChangeLanguage('fr')">DE</button>
     <form ng-submit="">
 	      <div class="row responsive-sm">
 	      	<div class="col">
@@ -21,7 +23,7 @@
 	        </div>
           <div class="col">
               <label class="item item-input">
-                <input type="text" placeholder="Ville" required ng-change="search()" ng-model="data.search">
+                <input type="text" placeholder="{{ 'vil' | translate}}" required ng-change="search()" ng-model="data.search">
               </label> 
                 <div class="list">
                   <li class="item" ng-repeat="airline in data.airlines">

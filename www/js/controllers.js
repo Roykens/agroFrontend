@@ -33,7 +33,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope, $stateParams, $http, Prix, Villes, $http) 
+.controller('PlaylistsCtrl', function($scope, $stateParams, $http, Prix, Villes, $http, $translate) 
 {
   $scope.idmarche = $stateParams.idmarche;
 
@@ -50,6 +50,10 @@ angular.module('starter.controllers', [])
     },function(err){
       console.log('ERR', err);
   });
+
+  $scope.ChangeLanguage = function(lang){
+    $translate.use(lang);
+  }
 /*
   Prix.getProduit($stateParams.idProduit).success(function(data){
           $scope.produitSelected = data.results;
@@ -61,9 +65,15 @@ angular.module('starter.controllers', [])
   });
 */
 })
-.controller('PlaylistCtrl', ['$scope', '$stateParams', '$log','$http', 'Villes',
-    function($scope, $stateParams, $log, $http, Villes) {
+.controller('PlaylistCtrl', ['$scope', '$stateParams', '$log','$http', 'Villes','$translate',
+    function($scope, $stateParams, $log, $http, Villes, $translate) {
 
+      $scope.ChangeLanguage = function(lang){
+          console.log("je suis celui"+lang);
+          $translate.use(lang);
+          console.log("je suis"+lang);
+      }
+      
       //recuperation des nom des Categories
       $http.get('/api/categories').then(function(resp) {
         $scope.categories = resp.data;

@@ -4,12 +4,12 @@
         <div class="row responsive-sm">
           <div class="col">
             <label class="item item-input item-select">
-          <div class="input-label">
-              Categories
-          </div>
-          <select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id">
-          </select>
-          </label>
+              <div class="input-label">
+                Categories
+              </div>
+              <select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id">
+              </select>
+            </label>
           </div>
           <div class="col">
             <label class="item item-input item-select">
@@ -19,13 +19,14 @@
               <select ng-model="pro" ng-options="prod as prod.nom for prod in produits track by prod.id"></select>
             </label>
           </div>
-          <div class="col" ng-controller="MyCtrl">
+          </div>
+          <div class="col">
               <label class="item item-input">
-                <input type="text" placeholder="Ville" ng-change="search()" ng-model="data.search">
+                <input type="text" placeholder="Ville" required ng-change="search()" ng-model="data.search">
               </label> 
                 <div class="list">
                   <li class="item" ng-repeat="airline in data.airlines">
-                    <a ng-click="selectName(airline)">{{ airline.nom}}</a>
+                    <a ng-click="selectName(airline, produit)">{{ airline.nom}}</a>
                   </li>
                 </div>
             </div>
@@ -39,19 +40,26 @@
           </div>
           <div class="col">
             <label class="item item-input">
-              <input type="date" placeholder="debut"  ng-model="dubut">
-            </label>
-          </div>
-          <div class="col">
-            <ionic-datepicker idate="currentDate" disablepreviousdates="true"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" title="title" mondayfirst="true">
-              <button class="button button-block button-positive"> 
+              <div class="input-label">
+                Debut
+              </div>
+              <ionic-datepicker idate="currentDate" disablepreviousdates="true"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" title="title" mondayfirst="true">
+              <button class="button button-clear button-positive icon ion-navicon"> 
                 {{ currentDate | date:'dd - MMMM - yyyy' }} 
               </button>
             </ionic-datepicker>
+            </label>
           </div>
           <div class="col">
             <label class="item item-input">
-              <input type="date" placeholder="debut"  ng-model="dubut">
+              <div class="input-label">
+                Fin
+              </div>
+              <ionic-datepicker idate="currentDate" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" title="title" mondayfirst="true">
+              <button class="button button-clear button-positive icon ion-calendar"> 
+                {{ currentDate | date:'dd - MMMM - yyyy' }} 
+              </button>
+            </ionic-datepicker>
             </label>
           </div>
           <div class="col">
