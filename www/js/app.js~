@@ -34,16 +34,14 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
         pro: "Product",
         pri: "See price",
         mac: "Market",
-        vil: "Town",
-        carte:"Locate the market on a map"
+        vil: "Town"
   });
   $translateProvider.translations('fr', {
         cat: "Categorie",
         pro: "Produit",
         pri: "Voir prix",
         mac: "Marche",
-        vil: "Ville",
-        carte:"Voir le marche sur la carte"
+        vil: "Ville"
   });
         $translateProvider.preferredLanguage("fr");
         $translateProvider.fallbackLanguage("en");

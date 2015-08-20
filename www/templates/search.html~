@@ -1,7 +1,7 @@
 <ion-view view-title="Choix Produit">
   <ion-content class="splash" >
+  <button class="button button-clear" ng-click="ChangeLanguage('en')">EN</button>
   <button class="button button-clear" ng-click="ChangeLanguage('fr')">FR</button>
-  <button class="button button-clear" ng-click="ChangeLanguage('en')">EN</button>  
     <form ng-submit="">
 	      <div class="row responsive-sm">
 	      	<div class="col">
