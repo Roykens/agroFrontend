@@ -1,24 +1,7 @@
-var translations = {
-    "en": {
-        "cat": "Cathegory",
-        "pro": "Product",
-        "pri": "See price",
-        "mac": "Market",
-        "vil": "Town"
-    },
-    "fr": {
-        "cat": "Categorie",
-        "pro": "Produit",
-        "pri": "Voir prix",
-        "mac": "Varche",
-        "vil": "Ville"
-    }
-  }
-
 
 angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMap', 'starter.controllers', 'starter.services', 'ionic-datepicker','chart.js'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $translate) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -31,16 +14,37 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    //la geolocalisation
+
+     if(typeof navigator.globalization !== "undefined") {
+                navigator.globalization.getPreferredLanguage(function(language) {
+                    $translate.use((language.value).split("-")[0]).then(function(data) {
+                        console.log("SUCCESS -> " + data);
+                    }, function(error) {
+                        console.log("ERROR -> " + error);
+                    });
+                }, null);
+            }
+
   });
-})
+}).config(function($stateProvider, $urlRouterProvider, $translateProvider) {
 
-.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
-
-  for(lang in translations){
-    $translateProvider.translations(lang, translations[lang]);
-  }
-  
-  $translateProvider.preferredLanguage('en');
+  $translateProvider.translations('en', {
+        cat: "Cathegory",
+        pro: "Product",
+        pri: "See price",
+        mac: "Market",
+        vil: "Town"
+  });
+  $translateProvider.translations('fr', {
+        cat: "Categorie",
+        pro: "Produit",
+        pri: "Voir prix",
+        mac: "Marche",
+        vil: "Ville"
+  });
+        $translateProvider.preferredLanguage("fr");
+        $translateProvider.fallbackLanguage("en");
 
   $stateProvider
 

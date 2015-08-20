@@ -7,7 +7,7 @@
 	      	<div class="col">
 	          <label class="item item-input item-select">
   			  <div class="input-label">
-      				Categories
+      				{{"cat" | translate}}
     			</div>
     			<select ng-model="categorie" ng-options="categorie as categorie.nom for categorie in categories track by categorie.id" ng-change="updateProduits(categorie)" >
     			</select>
@@ -16,7 +16,7 @@
 	        <div class="col">
 	          <label class="item item-input item-select">
         			<div class="input-label">
-          				Produit
+          				{{"pro" | translate}}
         			</div>
 			        <select ng-model="produit" ng-options="produit as produit.nom for produit in produits track by produit.id" ng-change="updateVilles(produit)"></select>
   			    </label>
@@ -34,13 +34,13 @@
   	        <div class="col">
   	          <label class="item item-input item-select">
       			     <div class="input-label">
-        				    Marches
+        				    {{"mac" | translate}}
       			     </div>
 			         <select ng-model="marche" ng-options="marche as marche.nom  for marche in marches"></select>
   			     </label>
 	        </div>
 	        <div class="col" >
-              <a class="button button-block button-positive" href="#/app/playlists/{{produit.id}}/{{marche.id}}">prix</a>
+              <a class="button button-block button-balanced" href="#/app/playlists/{{produit.id}}/{{marche.id}}">{{"pri" | translate}}</a>
 	        </div>
 	      </div>
     </form>

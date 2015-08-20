@@ -38,18 +38,19 @@ angular.module('starter.controllers', [])
   $scope.idmarche = $stateParams.idmarche;
 
   //console.log($stateParams.idProduit+'je suis la'+$stateParams.idmarche);
+ if(typeof($stateParams.idProduit)!=='undefined'){
+    $http.get('api/produits/'+$stateParams.idProduit).then(function(resp){
+        $scope.produitSelected = resp.data;
+      },function(err){
+        console.log('ERR', err);
+    });
 
-  $http.get('api/produits/'+$stateParams.idProduit).then(function(resp){
-      $scope.produitSelected = resp.data;
-    },function(err){
-      console.log('ERR', err);
-  });
-
-  $http.get('/api/prix/'+$stateParams.idProduit+'/'+$stateParams.idmarche).then(function(resp){
-      $scope.prixProduit = resp.data;
-    },function(err){
-      console.log('ERR', err);
-  });
+    $http.get('/api/prix/'+$stateParams.idProduit+'/'+$stateParams.idmarche).then(function(resp){
+        $scope.prixProduit = resp.data;
+      },function(err){
+        console.log('ERR', err);
+    });
+}
 
   $scope.ChangeLanguage = function(lang){
     $translate.use(lang);
@@ -69,9 +70,7 @@ angular.module('starter.controllers', [])
     function($scope, $stateParams, $log, $http, Villes, $translate) {
 
       $scope.ChangeLanguage = function(lang){
-          console.log("je suis celui"+lang);
           $translate.use(lang);
-          console.log("je suis"+lang);
       }
       
       //recuperation des nom des Categories
@@ -124,6 +123,7 @@ angular.module('starter.controllers', [])
     }
 
       $scope.currentDate = new Date();
+      $scope.debut = new Date();
       $scope.title = "Custom Title";
 
       $scope.datePickerCallback = function (val) {
