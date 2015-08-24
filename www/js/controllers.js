@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -23,6 +23,7 @@ angular.module('starter.controllers', [])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
+    $state.go('app.update', {'idAgent': '$scope.data.login'})
     console.log('Doing login', $scope.loginData);
 
     // Simulate a login delay. Remove this and replace with your login
@@ -121,6 +122,55 @@ angular.module('starter.controllers', [])
           console.log('ERR', err);
         }); 
     }
+
+      $scope.currentDate = new Date();
+      $scope.debut = new Date();
+      $scope.title = "Custom Title";
+
+      $scope.datePickerCallback = function (val) {
+        if(typeof(val)==='undefined'){      
+            console.log('Date not selected');
+        }else{
+          console.log('Selected date is : ', val);
+        }
+    };
+
+}]).controller('ModifierCtrl', ['$scope', '$stateParams', '$log','$http', 'Villes','$translate',
+    function($scope, $stateParams, $log, $http, Villes, $translate) {
+      
+      //recuperation des nom des Categories
+      $http.get('/api'+'/categories').then(function(resp) {
+        $scope.categories = resp.data;
+        console.log('pass'+$stateParams.idAgent);
+      },function(err){
+          console.log('ERR', err);
+        });
+
+      // la fonction qui permet de mettre a jour les produits
+      $scope.produits = "";
+      $scope.data = { "airlines" : [], "search" : '' };
+      $scope.updateProduits = function (categorie){
+        console.log('/api/categories/'+categorie.id+'/produits');
+        $http.get('/api/categories/'+categorie.id+'/produits').then(function(resp){
+          $scope.produits = resp.data;
+          //console.log('Success', resp);
+        },function(err){
+          console.log('ERR', err);
+        });
+      }
+
+      //recuperation des nom des villes
+
+      $scope.updateVilles = function (produit) 
+      {
+        $scope.search = function() {
+            Villes.searchVilles($scope.data.search, produit.id).then(
+              function(matches) {
+                $scope.data.airlines = matches;
+              }
+           )
+        }
+      }
 
       $scope.currentDate = new Date();
       $scope.debut = new Date();

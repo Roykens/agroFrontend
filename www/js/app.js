@@ -35,7 +35,9 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
         pri: "See price",
         mac: "Market",
         vil: "Town",
-        carte:"Locate the market on a map"
+        carte:"Locate the market on a map",
+        nprix:"New price",
+        action:"Update"
   });
   $translateProvider.translations('fr', {
         cat: "Categorie",
@@ -43,7 +45,9 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
         pri: "Voir prix",
         mac: "Marche",
         vil: "Ville",
-        carte:"Voir le marche sur la carte"
+        carte:"Voir le marche sur la carte",
+        nprix:"Nouvel prix",
+        action:"Modifier"
   });
         $translateProvider.preferredLanguage("fr");
         $translateProvider.fallbackLanguage("en");
@@ -56,7 +60,6 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-
   .state('app.search', {
     url: '/search',
     views: {
@@ -110,7 +113,17 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
         controller: 'PlaylistsCtrl'
       }
     }
-  }).state('app.evolution', {
+  })
+  .state('app.update', {
+    url: '/modifer/:idAgent',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/modifier.html',
+        controller: 'ModifierCtrl'
+      }
+    }
+  })
+  .state('app.evolution', {
     url: '/evolution/:produitId',
     views: {
       'menuContent': {

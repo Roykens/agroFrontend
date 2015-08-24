@@ -1,0 +1,54 @@
+<ion-view view-title="Modifier le Prix">
+  <ion-content class="splash" >
+  <button class="button button-clear" ng-click="ChangeLanguage('fr')">FR</button>
+  <button class="button button-clear" ng-click="ChangeLanguage('en')">EN</button>  
+    <form ng-submit="">
+	      <div class="row responsive-sm">
+	      	<div class="col">
+	          <label class="item item-input item-select">
+  			  <div class="input-label">
+      				{{"cat" | translate}}
+    			</div>
+    			<select ng-model="categorie" ng-options="categorie as categorie.nom for categorie in categories track by categorie.id" ng-change="updateProduits(categorie)" >
+    			</select>
+  			  </label>
+	        </div>
+	        <div class="col">
+	          <label class="item item-input item-select">
+        			<div class="input-label">
+          				{{"pro" | translate}}
+        			</div>
+			        <select ng-model="produit" ng-options="produit as produit.nom for produit in produits track by produit.id" ng-change="updateVilles(produit)"></select>
+  			    </label>
+	        </div>
+          <div class="col">
+              <label class="item item-input">
+                <div class="input-label">
+                    {{"vil" | translate}}
+                 </div>
+                <input type="text"  required ng-model="data.search">
+              </label>
+          </div>
+  	       <div class="col">
+  	          <label class="item item-input">
+      			     <div class="input-label">
+        				    {{"mac" | translate}}
+      			     </div>
+			         <input type="text"  required ng-model="data.marche">
+  			     </label>
+	        </div>
+	        <div class="col">
+              <label class="item item-input">
+                <div class="input-label">
+                    {{"nprix" | translate}}
+                 </div>
+                <input type="text" required  ng-model="data.prix">
+              </label>
+          </div>
+          <div class="col" >
+              <a class="button button-block button-balanced" href="#/app/playlists/{{produit.id}}/{{marche.id}}">{{"action" | translate}}</a>
+          </div>
+	      </div>
+    </form>
+  </ion-content>
+</ion-view>
