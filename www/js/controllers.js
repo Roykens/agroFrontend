@@ -20,14 +20,12 @@ angular.module('starter.controllers', [])
   $scope.login = function() {
     $scope.modal.show();
   };
-
+  $scope.nom = "pouemo";
   // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    $state.go('app.update', {'idAgent': '$scope.data.login'})
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
+  $scope.doLogin = function(user, password) {
+    //var login = $scope.login;
+    console.log('le login  '+user+' le password  '+'le login  '+user);
+    $state.go('app.update', {login:user,password:password});
     $timeout(function() {
       $scope.closeLogin();
     }, 1000);
@@ -138,6 +136,9 @@ angular.module('starter.controllers', [])
 }]).controller('ModifierCtrl', ['$scope', '$stateParams', '$log','$http', 'Villes','$translate',
     function($scope, $stateParams, $log, $http, Villes, $translate) {
       
+      $scope.login = $stateParams.login;
+      $scope.login = $stateParams.password;
+
       //recuperation des nom des Categories
       $http.get('/api'+'/categories').then(function(resp) {
         $scope.categories = resp.data;

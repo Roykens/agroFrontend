@@ -115,11 +115,11 @@ angular.module('starter', ['ionic', 'ngResource','pascalprecht.translate', 'ngMa
     }
   })
   .state('app.update', {
-    url: '/modifer/:idAgent',
+    url: '/modifer/:login/password',
     views: {
       'menuContent': {
         templateUrl: 'templates/modifier.html',
-        controller: 'ModifierCtrl'
+        controller: 'ModifierCtrl',
       }
     }
   })

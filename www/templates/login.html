@@ -1,5 +1,5 @@
 <ion-modal-view>
-  <ion-header-bar>
+  <ion-header-bar class="bar-balanced">
     <h1 class="title">Login</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
@@ -7,24 +7,24 @@
   </ion-header-bar>
   <ion-content>
     <div class="item item-image" >
-      <img src="pictures/luck.jpg" alt="logo">
+      <img src="pictures/logo1.png" alt="logo">
     </div>
-    <form ng-submit="doLogin()">
+    <form ng-submit="doLogin(user, password)">
       <div class="row responsive-sm">
         <div class="col">
           <label class="item item-input">
             <span class="input-label">Login</span>
-            <input type="text" placeholder="Votre Login" ng-model="data.login">
+            <input type="text" placeholder="Votre Login" ng-model="user">
           </label>
         </div>
         <div class="col">
           <label class="item item-input">
             <span class="input-label">password</span>
-            <input type="password" placeholder="Votre mot de passe" ng-model="data.password">
+            <input type="password" placeholder="Votre mot de passe" ng-model="password">
           </label>
         </div>
         <div class="col">
-          <button class="button button-block button-positive" type="submit"> 
+          <button class="button button-block button-balanced" type="submit"> 
                <i class="ion-ios-unlocked"></i>
           </button>
         </div>
