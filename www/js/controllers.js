@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $http) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -20,15 +20,26 @@ angular.module('starter.controllers', [])
   $scope.login = function() {
     $scope.modal.show();
   };
-  $scope.nom = "pouemo";
+
+  var vefified = "";
+  $scope.error = "";
   // Perform the login action when the user submits the login form
   $scope.doLogin = function(user, password) {
-    //var login = $scope.login;
-    console.log('le login  '+user+' le password  '+'le login  '+user);
-    $state.go('app.update', {login:user,password:password});
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    $http.get('api/'+'authentification/'+user+'/'+password).then(function(resp){
+        vefified = resp.data;
+      },function(err){
+        console.log('ERR', err);
+    });
+    if(vefified.reponse == 'succes')
+    {
+      $state.go('app.update', {login:user,password:password});
+      $timeout(function() {
+        $scope.closeLogin();
+      }, 1000);
+    }else{
+      $scope.password = "";
+      $scope.error = "login ou mot de passe incorrect";
+    }
   };
 })
 
