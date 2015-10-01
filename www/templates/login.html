@@ -2,10 +2,12 @@
   <ion-header-bar class="bar-balanced">
     <h1 class="title">Login</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+      <button class="button button-clear" ng-click="closeLogin()">
+        <i class="icon ion-close"></i>
+      </button>
     </div>
   </ion-header-bar>
-  <ion-content>
+  <ion-content class= "splash">
     <div class="item item-image" >
       <img src="pictures/logo1.png" alt="logo">
     </div>
@@ -27,7 +29,7 @@
           <font color="red" ng-model="error">{{error}}</font>
         </div>
         <div class="col">
-          <button class="button button-block button-balanced" type="submit"> 
+          <button ng-disabled="!user || !password" class="button button-block button-balanced" type="submit"> 
                <i class="ion-ios-unlocked"></i>
           </button>
         </div>

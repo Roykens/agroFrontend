@@ -1,23 +1,28 @@
 <ion-view view-title="PRIX">
-  <ion-content ng-controller="PlaylistsCtrl">
-    <h1 ng-model="produitSelected"><center>{{produitSelected.nom | uppercase}}</center></h1>
-    <div class="row responsive-sm">
-    	<ion-list ng-model="prixProduit">
-          <div class="col">
-            <ion-item href="#">le prix en {{produitSelected.conditionnement}}</ion-item>
-          </div>
-          <div class="col">
-            <ion-item href="#">{{prixProduit.prix}}</ion-item>
-          </div>
-          <div class="col">
-            <ion-item href="#">{{prixProduit.etatPrix}}</ion-item>
-          </div>
-	    </ion-list>
-      <div class="col" ng-model="idmarche">
-          <a class="button button-block button-positive" href="#/app/playlists/{{idmarche}}">
-            {{"carte" | translate}}
-          </a>
-      </div>
-	</div>
-  </ion-content>
+    <ion-content ng-controller="PlaylistsCtrl" class="splash">
+        <h1 ng-model="produitSelected"><center>{{produitSelected.nom| uppercase}}</center></h1>
+        <div class="row responsive-sm">
+            <ion-list ng-model="prixProduit">
+                <div class="col">
+                    <ion-item href="#" class ="tata">le prix en {{produitSelected.conditionnement}}</ion-item>
+                </div>
+                <div class="col">
+                    <ion-item href="#" class ="tata">{{prixProduit.prix}}</ion-item>
+                </div>
+                <div class="col">
+                    <ion-item href="#" class ="tata">{{prixProduit.etatPrix}}</ion-item>
+                </div>
+            </ion-list>
+            <div class="col" ng-model="idmarche">
+                <a class="button button-block button-balanced" href="#/app/playlist/{{produitSelected.id}}/{{idVille}}">
+                    voir le prix sur les autres marches de la ville
+                </a>
+            </div>
+            <div class="col" ng-model="idmarche">
+                <a class="button button-block button-balanced" href="#/app/playlists/{{idmarche}}">
+                    {{"carte"| translate}}
+                </a>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

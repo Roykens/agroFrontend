@@ -1,52 +1,54 @@
 
 var airlines = [];
-airlines = airlines.sort(function(a, b) 
+airlines = airlines.sort(function (a, b)
 {
-  var airlineA = a.nom.toLowerCase();
-  var airlineB = b.nom.toLowerCase();
-  if(airlineA > airlineB) return 1;
-  if(airlineA < airlineB) return -1;
-  return 0;
+    var airlineA = a.nom.toLowerCase();
+    var airlineB = b.nom.toLowerCase();
+    if (airlineA > airlineB)
+        return 1;
+    if (airlineA < airlineB)
+        return -1;
+    return 0;
 });
-angular.module('starter.services', []).factory('Villes', function($q, $timeout, $http) {
+angular.module('starter.services', []).factory('Villes', function ($q, $timeout, $http) {
 
-    var searchVilles = function(searchFilter, idProduit) 
+    var searchVilles = function (searchFilter, idProduit)
     {
-          var deferred = $q.defer();
+        var deferred = $q.defer();
 
-          console.log('/api/produits/'+idProduit+'/villes');
+        console.log('/api/produits/' + idProduit + '/villes');
 
-          $http.get('/api/produits/'+idProduit+'/villes').then(function(resp) 
-          {
+        $http.get('/api/produits/' + idProduit + '/villes').then(function (resp)
+        {
             airlines = resp.data;
-          }, function(err) {
+        }, function (err) {
             console.log('ERR', err);
-          });
-          var matches = airlines.filter( function(airline) 
-          {
-            if(airline.nom.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1 ) return true;
-          })
-         $timeout( function()
-         {
-           deferred.resolve( matches );
-          }, 100);
+        });
+        var matches = airlines.filter(function (airline)
+        {
+            if (airline.nom.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1)
+                return true;
+        })
+        $timeout(function ()
+        {
+            deferred.resolve(matches);
+        }, 100);
 
         return deferred.promise;
     };
 
     return {
-
-        searchVilles : searchVilles
+        searchVilles: searchVilles
 
     }
-}).factory('Prix', function($q, $timeout, $http) {
+}).factory('Prix', function ($q, $timeout, $http) {
 
     return {
-        getProduit:function(idProduit){
-            return $http.get('api/produits/'+idProduit);
+        getProduit: function (idProduit) {
+            return $http.get('api/produits/' + idProduit);
         },
-        get:function(idmarche, idproduit){
-            return $http.get('/api/prix/'+idproduit+'/'+idmarche);
+        get: function (idmarche, idproduit) {
+            return $http.get('/api/prix/' + idproduit + '/' + idmarche);
         }
     }
-}); 
+});

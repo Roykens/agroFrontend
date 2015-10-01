@@ -1,14 +1,50 @@
-.splash{
+
+.home{
 	/*background: url(../pictures/background.jpg) no-repeat center center fixed; */
-	background: url(../pictures/bg.jpg) no-repeat center center fixed; 
+	background: url(../pictures/bgcolore.png) no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 }
 
+.splash{
+	background-color: rgba(255, 140, 0, 0.8);
+	opacity: 0.6%;
+}
+
+.branding {
+	width: 50%;
+	max-width: 200px;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 45%;
+}
+
+.tagline{
+	background-color: #28a54c;
+	border-radius: 20px;
+}
+
 li :hover{
 	background-color: skyblue;
+}
+
+.toto :hover{
+	background-color: rgba(255, 140, 0, 0.8);
+	opacity: 0.6%;
+	color: white ;
+}
+
+.tata :hover{
+	background-color: #28a54c;
+	color: white ;
+}
+.nom{
+	color: white;
+    font-size: 20px;
+    text-shadow: 1px 1px 4px rgba(255, 140, 0, 0.8);
+    text-align: center;
 }
 
 map {
@@ -18,4 +54,13 @@ map {
 
 .scroll, .mapWrap {
   height: 100%;
+}
+
+.promo-text{ 
+    color: darkorange ;
+    font-size: 25px;
+    line-height: 34px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 4px green;
+    text-align: center;
 }
