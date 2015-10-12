@@ -221,8 +221,8 @@ angular.module('starter.controllers', [])
             //
             $scope.element.etatPrix= "Baisse";
             console.log('la mise a jour du prix');
-             console.log('/api'+'/prix/'+$scope.element.etatPrix+'/'+$scope.element.produit.id+'/'+$scope.element.marche.id, $scope.element);
-            $http.post('/api'+'/prix/'+$scope.element.etatPrix+'/'+$scope.element.produit.id+'/'+$scope.element.marche.id, $scope.element.produit).then(function (resp) {
+             console.log('/api'+'/prix/'+$scope.element.etatPrix+'/'+$scope.element.produit.id+'/'$scope.element.marche.id, $scope.element);
+            $http.post('/api'+'/prix/'+$scope.element.etatPrix+'/'+$scope.element.produit.id+'/'$scope.element.marche.id, $scope.element.produit).then(function (resp) {
                 $scope.success = "prix modifier";
             }, function (err) {
                 console.log('ERR', err);
