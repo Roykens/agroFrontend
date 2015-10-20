@@ -95,6 +95,7 @@ angular.module('starter.controllers', [])
                 };
                 //recuperation des nom des villes ayant un produit de la categorie
                 $scope.updateVilles = function (produit){
+                    $scope.montrelist = true;
                     $http.get('/api/produits/' + produit.id + '/villes').then(function (resp) {
                         $scope.data.airlines = resp.data;
                         $scope.data.search = "";
