@@ -5,7 +5,7 @@
             <ion-list ng-model="prixProduit" ng-repeat="produit in prixProduits">
                 <div class="col">
                 <!--    <ion-item href="#" class="tata">Marche : {{produit.nomMarche}} prix : {{produit.prix}}</ion-item>  -->
-                    <ion-item class="item-remove-animate">
+                    <ion-item >
                     	 <h2>{{produit.nomMarche}}</h2>
     					 <p>{{produit.prix}}</p>
                     </ion-item>

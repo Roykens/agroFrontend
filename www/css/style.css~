@@ -66,6 +66,6 @@ map {
     font-size: 30px;
     line-height: 34px;
     margin-bottom: 20px;
-    text-shadow: 1px 1px 4px #5B6E8C;
+    text-shadow: 1px 1px 4px green;
     text-align: center;
 }
