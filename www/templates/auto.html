@@ -1,70 +1,48 @@
 <ion-view view-title="Evolution">
   <ion-content class="splash" >
+  <ion-refresher pulling-text="Pull to refresh..." on-refresh="updateProduits(categorie)">
+  </ion-refresher>
     <form ng-submit="">
         <div class="row responsive-sm">
           <div class="col">
-            <label class="item item-input item-select">
-              <div class="input-label">
-              {{"cat" | translate}}
-              </div>
-              <select ng-model="cat" ng-options="cat as cat.nom for cat in categories track by cat.id">
-              </select>
-            </label>
-          </div>
-          <div class="col">
-            <label class="item item-input item-select">
-              <div class="input-label">
-                  {{"pro" | translate}}
-              </div>
-              <select ng-model="pro" ng-options="prod as prod.nom for prod in produits track by prod.id"></select>
-            </label>
-          </div>
-          </div>
-          <div class="col">
-              <label class="item item-input">
-                <input type="text" placeholder="Ville" required ng-change="search()" ng-model="data.search">
-              </label> 
-                <div class="list">
-                  <li class="item" ng-repeat="airline in data.airlines">
-                    <a ng-click="selectName(airline, produit)">{{ airline.nom}}</a>
-                  </li>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            {{"cat"| translate}}
+                        </div>
+                        <select ng-model="categorie" ng-options="categorie as categorie.nom for categorie in categories track by categorie.id" ng-change="updateProduits(categorie)" >
+                        </select>
+                    </label>
                 </div>
-            </div>
-            <div class="col">
-              <label class="item item-input item-select">
-                 <div class="input-label">
-                    {{"mac" | translate}}
-                 </div>
-               <select ng-model="cat" ng-options="vil as vil.nom  for vil in vi"></select>
-             </label>
-          </div>
-          <div class="col">
-            <label class="item item-input">
-              <div class="input-label">
-                Debut
+                <div class="col">
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            {{"pro"| translate}}
+                        </div>
+                        <select ng-model="produit" ng-options="produit as produit.nom for produit in produits track by produit.id" ng-change="updateVilles(produit)"></select>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input">
+                        <input type="text" placeholder="{{'vil' | translate}}" required  ng-model="data.search" ng-change="search()">
+                    </label> 
+
+                    <ion-list ng-repeat="airline in data.airlines | filter: data.search" ng-show="montrelist"> 
+                        <ion-item  href="#" class="toto" ng-click="selectName(airline, produit)">
+                            {{ airline.nom}}
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="col">
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            {{"mac"| translate}}
+                        </div>
+                        <select ng-model="marche" ng-options="marche as marche.nom  for marche in marches"></select>
+                    </label>
+                </div>
+                <div class="col">
+                  <a class="button button-block button-balanced" ng-disabled="!marche" href="#/app/evolution/{{produit.id}}/{{marche.id}}">Evolution</a>
               </div>
-              <ionic-datepicker idate="currentDate" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" title="title" mondayfirst="true">
-              <button class="button button-clear"> 
-                {{ currentDate | date:'dd - MMMM - yyyy' }} 
-              </button>
-            </ionic-datepicker>
-            </label>
-          </div>
-          <div class="col">
-            <label class="item item-input">
-              <div class="input-label">
-                Fin
-              </div>
-              <ionic-datepicker idate="debut" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" title="title" mondayfirst="true">
-              <button class="button button-clear button-positive "> 
-                {{ debut | date:'dd - MMMM - yyyy' }} 
-              </button>
-            </ionic-datepicker>
-            </label>
-          </div>
-          <div class="col">
-              <a class="button button-block button-balanced" href="#/app/evolution/{{cat.id}}">Evolution</a>
-          </div>
         </div>
     </form>
   </ion-content>

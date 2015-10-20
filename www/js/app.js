@@ -133,7 +133,7 @@ angular.module('starter', ['ionic', 'ngResource', 'pascalprecht.translate', 'ngM
                 }
             })
             .state('app.evolution', {
-                url: '/evolution/:produitId',
+                url: '/evolution/:produitId/:marcheId',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/evolution.html',

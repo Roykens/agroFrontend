@@ -1,15 +1,11 @@
 <ion-view view-title="EVOLUTION">
-  <ion-content>
-    <h1><center>Mais</center></h1><br/>
-      <h3><center>Prix Par Boite </center></h3>
-	<div>
-		<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick">
-		</canvas> 
-	</div>
-  <br/>
-      <h3><center>Prix Par Sceau</center></h3>
+  <ion-content >
+    <br/>
+    <h2><center>{{produitSelected.nom| uppercase}}</center></h2>
+    <br/>
+    <h2><center>{{produitSelected.conditionnement}}</center></h2>
   <div>
-    <canvas id="line" class="chart chart-line" data="datasceau" labels="labelsceau" legend="true" series="seriesceau" click="onClick">
+    <canvas id="line" class="chart chart-line" data="prixprod" labels="dateprod" legend="true" series="serieprod" click="onClick">
     </canvas> 
   </div>
   </ion-content>
