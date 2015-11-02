@@ -70,11 +70,12 @@ angular.module('starter', ['ionic', 'ngResource', 'pascalprecht.translate', 'ngM
                 }
             })
 
-            .state('app.browse', {
-                url: '/browse',
+            .state('app.actualites', {
+                url: '/actualites',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/browse.html'
+                        templateUrl: 'templates/actualites.html',
+                        controller: 'ActualitesCtrl'
                     }
                 }
             })

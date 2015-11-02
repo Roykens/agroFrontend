@@ -80,6 +80,7 @@ angular.module('starter.controllers', [])
                 };
                 //recuperation des nom des Categories
                 $http.get('/api/categories').then(function (resp) {
+                    console.log('Success', resp);
                     $scope.categories = resp.data;
                 }, function (err) {
                     console.log('ERR', err);
@@ -127,67 +128,57 @@ angular.module('starter.controllers', [])
                 };
             }]).controller('ModifierCtrl', ['$scope', '$stateParams', '$log', '$http', 'Villes', '$translate',
             function ($scope, $stateParams, $log, $http, Villes, $translate) {
+                $scope.login = $stateParams.login;
+                $scope.password = $stateParams.password;
 
-        $scope.login = $stateParams.login;
-        $scope.password = $stateParams.password;
+                //recuperation des nom des Categories
+                $http.get('/api' + '/categories').then(function (resp) {
+                    $scope.categories = resp.data;
+                }, function (err) {
+                    console.log('ERR', err);
+                });
+                // la fonction qui permet de mettre a jour les produits
+                $scope.produits = "";
+                $scope.data = {"airlines": [], "search": ''};
+                $scope.updateProduits = function (categorie) {
+                    console.log('/api/categories/' + categorie.id + '/produits');
+                    $http.get('/api/categories/' + categorie.id + '/produits').then(function (resp) {
+                        $scope.produits = resp.data;
+                        //console.log('Success', resp);
+                    }, function (err) {
+                        console.log('ERR', err);
+                    });
+                };
+                //recuperation des nom des villes
 
-        //recuperation des nom des Categories
-        $http.get('/api' + '/categories').then(function (resp) {
-            $scope.categories = resp.data;
-        }, function (err) {
-            console.log('ERR', err);
-        });
-        // la fonction qui permet de mettre a jour les produits
-        $scope.produits = "";
-        $scope.data = {"airlines": [], "search": ''};
-        $scope.updateProduits = function (categorie) {
-            console.log('/api/categories/' + categorie.id + '/produits');
-            $http.get('/api/categories/' + categorie.id + '/produits').then(function (resp) {
-                $scope.produits = resp.data;
-                //console.log('Success', resp);
-            }, function (err) {
-                console.log('ERR', err);
-            });
-        };
-        //recuperation des nom des villes
+                $scope.updateVilles = function (produit) {
+                    $scope.search = function () {
+                        Villes.searchVilles($scope.data.search, produit.id).then(
+                                function (matches) {
+                                    $scope.data.airlines = matches;
+                                }
+                        );
+                    };
+                };
 
-        $scope.updateVilles = function (produit) {
-            $scope.search = function () {
-                Villes.searchVilles($scope.data.search, produit.id).then(
-                        function (matches) {
-                            $scope.data.airlines = matches;
-                        }
-                );
-            };
-        };
-
-        // cettefonction permet de mettre a jour le prix d un  produit
-        $scope.element = {"prix": '', "datePrix": '', "etatPrix": '', "produit": [], "marche": []};
-        $scope.etats = ["Baisse", "Haute"];
-        //la date de la mise a jour
-        $scope.element.datePrix = new Date();
-        $scope.datePickerCallback = function (val) {
-            if (typeof (val) === 'undefined') {
-                console.log('Date not selected');
-            } else {
-                console.log('Selected date is : ', val);
-                $scope.element.datePrix = val;
-            }
-        };
-        // la fonction qui met a jour le prix
-        $scope.updatePrice = function (produit) {
-            //
-            $scope.element.marche = {"agents":[{"version":1,"id":1,"nom":"moi@yahoo.fr","login":"admin","password":"admin","phone":"23245","mail":"admin","adresse":"moi","roleType":"AGENT"}],"version":1,"id":1,"nom":"Central","longitude":300.0,"latitude":200.0,"dateCreation":"2015-10-12T00:00:00+01:00","description":"moi","ville":{"version":1,"id":1,"nom":"Maroua"}};
-            //
-            $scope.element.produit = {"version":1,"id":1,"nom":"Riz Parfume","conditionnement":"KG","info":"info","categorie":{"version":1,"id":2,"nom":"Cereales"}};
-            //
-            $scope.element.etatPrix = $scope.element.etatPrix;
-            console.log(' etat  ++'+$scope.element.etatPrix);
-            $http.post('/api' + '/prix/' + $scope.element.etatPrix, $scope.element).then(function (resp) {
-                $scope.success = "prix modifier";
-            }, function (err) {
-                console.log('ERR', err);
-            });
+                // cette fonction permet de mettre a jour le prix d un  produit
+                $scope.element = {"nouveauPrix": '', "etatPrix": '', "produitId": '', "marcheId": ''};
+                $scope.etats = ["Baisse", "Haute"];
+                // la fonction qui met a jour le prix
+                $scope.updatePrice = function (produit) {
+                //
+                $scope.element.marcheId = 1;
+                //
+                $scope.element.produitId = produit.id;
+                //
+                $scope.element.etatPrix = $scope.element.etatPrix;
+                //
+                $http.post('/api'+'/prix/', $scope.element).then(function (resp) {
+                //$http.post('/api' + '/prix/' + $scope.element.etatPrix+'1/1', $scope.element).then(function (resp) {
+                    $scope.success = "prix modifier";
+                }, function (err) {
+                    console.log('ERR', err);
+                });
         };
     }]).controller("AutresprixCtrl", ['$scope', '$stateParams', '$log', '$http', function ($scope, $stateParams, $log, $http) {
         //le controleur qui gere les prix sur les autres marches
@@ -199,6 +190,20 @@ angular.module('starter.controllers', [])
             }, function (err) {
                 console.log('ERR', err);
             });
+        }
+    }]).controller("ActualitesCtrl", ['$scope', '$log',
+     function ($scope, $log) {
+        //ici on gere comment organiser les
+        $scope.data = {supprimer:false, montre: false };
+        $scope.moveItem = function (item, $fromIndex, $toIndex) {
+            // body...
+        }
+        $scope.doRefresh = function (item, $fromIndex, $toIndex) {
+            $scope.$broadcast('scroll.refreshComplete');
+        }
+        $scope.loadMore = function function_name (argument) {
+            // body...
+            $scope.$broadcast('scroll.infiniteScrollComplete');
         }
     }]).controller("LineCtrl", ['$scope', '$timeout', '$http', '$stateParams', function ($scope, $timeout, $http,$stateParams) {
         var prixProds = [];

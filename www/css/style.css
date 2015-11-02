@@ -10,7 +10,9 @@
 
 .splash{
 	/*background-color: rgba(255, 140, 0, 0.8);*/
-	background-color:#4F8EF7;
+	background-color: rgb(173,255,047)
+;
+	/*background-color:#4F8EF7;*/
 	opacity: 0.6%;
 }
 
@@ -23,8 +25,8 @@
 }
 
 .tagline{
-	/*background-color: #28a54c;*/
-	background-color: #0b62ef;
+	background-color: #28a54c;
+	/*background-color: #0b62ef;*/
 	border-radius: 20px;
 }
 
@@ -33,8 +35,8 @@ li :hover{
 }
 
 .toto :hover{
-	/*background-color: rgba(255, 140, 0, 0.8);*/
-	background-color: #2B3442;
+	background-color: rgba(255, 140, 0, 0.8);
+	/*background-color: #2B3442;*/
 	opacity: 0.6%;
 	color: white ;
 }

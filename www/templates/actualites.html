@@ -1,13 +1,25 @@
 <ion-view view-title="Actualites">
-  <ion-content class="splash">
-    <ion-list class=" item-icon-right">
+  <ion-nav-buttons side="primary">
+    <button class="button button-icon ion-minus-circled" ng-click="data.supprimer = !data.supprimer; data.montre = false;">
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon ion-search" ng-click="data.montre = !data.montre; data.supprimer = false;">
+    </button>
+  </ion-nav-buttons>
+  <ion-content class="splash" scroll ="true">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+    <ion-list class=" item-icon-right" show-reorder = "data.montre" show-delete ="data.supprimer">
         <ion-item menu-close class="item-thumbnail-left item-text-wrap">
         	<img src="">
         	<h2>titre</h2>
         	<h3>sou-titre</h3>
+          <ion-delete-button class="ion-minus-circled"></ion-delete-button>
           	<p>
-          		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
+          		papa avaec Agriculture je suis comme j animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
           	</p>
+            <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
+            </ion-reorder-button>
         </ion-item>
         <ion-item menu-close class="item-thumbnail-left item-text-wrap">
         	<img src="">
@@ -16,6 +28,9 @@
           	<p>
           		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
           	</p>
+            <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
+          </ion-reorder-button>
         </ion-item>
         <ion-item menu-close class="item-thumbnail-left item-text-wrap">
         	<img src="">
@@ -24,6 +39,8 @@
           	<p>
           		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
           	</p>
+            <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
+            </ion-reorder-button>
         </ion-item>
         <ion-item menu-close class="item-thumbnail-left item-text-wrap">
         	<img src="">
@@ -42,5 +59,6 @@
           	</p>
         </ion-item>
       </ion-list>
+      <ion-infinite-scroll on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>
