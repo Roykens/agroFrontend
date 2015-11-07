@@ -1,0 +1,24 @@
+<ion-popover-view >
+	<ion-header-bar class="bar-balanced">
+		<h5 class="title">Votre avis</h5>
+		<button class="button button-clear" ng-click="closePopover()">
+        	<i class="icon ion-close"></i>
+      	</button>
+	</ion-header-bar>
+	<ion-content>
+		<form ng-submit="ajouterAvis(element)">
+	      <label class="item item-input">
+	        <input type="text" placeholder="nom" ng-model="element.nom">
+	       </label>
+	       <label class="item item-input">
+	           <input type="text" placeholder="Ville" ng-model="element.ville">
+	        </label>
+	        <label class="item item-input">
+	           <textarea placeholder="votre avis" ng-model="element.avis"></textarea>
+	        </label>
+	        <button ng-disabled="!element.nom || !element.ville" class="button button-block button-balanced" type="submit" ng-click=""> 
+	            <i class="ion-paper-airplane"></i>
+	        </button>
+    	</form>
+	</ion-content>
+</ion-popover-view>

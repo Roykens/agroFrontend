@@ -10,10 +10,14 @@
 
 .splash{
 	/*background-color: rgba(255, 140, 0, 0.8);*/
-	background-color: rgb(173,255,047)
-;
+	background-color: rgb(173,255,047);
 	/*background-color:#4F8EF7;*/
 	opacity: 0.6%;
+}
+
+.avis{
+	/*text-align: justify;*/
+	font-family: "Ionicons";
 }
 
 .branding {
@@ -25,9 +29,10 @@
 }
 
 .tagline{
-	background-color: #28a54c;
-	/*background-color: #0b62ef;*/
-	border-radius: 20px;
+	border-radius: 10px;
+	border-color: #28a54c;
+	background-color: #33cd5f;
+	background-image: linear-gradient(0deg, #28a54c, #28a54c, transparent 50%);
 }
 
 li :hover{
@@ -70,4 +75,5 @@ map {
     margin-bottom: 20px;
     text-shadow: 1px 1px 4px #5B6E8C;
     text-align: center;
+    font-family: "Ionicons";
 }

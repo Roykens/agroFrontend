@@ -1,62 +1,30 @@
-<ion-view view-title="Actualites">
+<ion-view view-title="Avis">
   <ion-nav-buttons side="primary">
     <button class="button button-icon ion-minus-circled" ng-click="data.supprimer = !data.supprimer; data.montre = false;">
     </button>
   </ion-nav-buttons>
   <ion-nav-buttons side="secondary">
-    <button class="button button-icon ion-search" ng-click="data.montre = !data.montre; data.supprimer = false;">
+    <button class="button button-icon ion-compose" ng-click="openPopover($event)">
     </button>
   </ion-nav-buttons>
   <ion-content class="splash" scroll ="true">
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
-    <ion-list class=" item-icon-right" show-reorder = "data.montre" show-delete ="data.supprimer">
-        <ion-item menu-close class="item-thumbnail-left item-text-wrap">
-        	<img src="">
-        	<h2>titre</h2>
-        	<h3>sou-titre</h3>
-          <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-          	<p>
-          		papa avaec Agriculture je suis comme j animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
+    <div class="bar  item-input-inset bar-light">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search plaholder-icon"></i>
+        <input type="search" placeholder="ville" ng-model="ville"></input>
+      </label>
+    </div>
+    <ion-list show-delete ="data.supprimer" ng-repeat="avis in lesavis | filter: ville">
+        <ion-item menu-close class="item item-avatar item-text-wrap">
+        	<img src="/pictures/face.png">
+        	<span style="color:#28a54c;"><b>{{avis.nom}}</b> de <b>{{avis.ville}}</b></span>
+          <ion-delete-button class="ion-minus-circled" ng-click="supprimerElement(avis)"></ion-delete-button>
+          	<p class='avis'>
+          		{{avis.avis}}
           	</p>
             <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
-            </ion-reorder-button>
-        </ion-item>
-        <ion-item menu-close class="item-thumbnail-left item-text-wrap">
-        	<img src="">
-        	<h2>titre</h2>
-        	<h3>sou-titre</h3>
-          	<p>
-          		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
-          	</p>
-            <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
-          </ion-reorder-button>
-        </ion-item>
-        <ion-item menu-close class="item-thumbnail-left item-text-wrap">
-        	<img src="">
-        	<h2>titre</h2>
-        	<h3>sou-titre</h3>
-          	<p>
-          		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
-          	</p>
-            <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
-            </ion-reorder-button>
-        </ion-item>
-        <ion-item menu-close class="item-thumbnail-left item-text-wrap">
-        	<img src="">
-        	<h2>titre</h2>
-        	<h3>sou-titre</h3>
-          	<p>
-          		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
-          	</p>
-         </ion-item>
-        <ion-item menu-close class="item-thumbnail-left item-text-wrap">
-        	<img src="">
-        	<h2>titre</h2>
-        	<h3>sou-titre</h3>
-          	<p>
-          		Agriculture is the cultivation of animals, plants, fungi, and other life forms for food, fiber, biofuel, medicinal and other products used to sustain and enhance ...
-          	</p>
+            </ion-reorder-button> 
         </ion-item>
       </ion-list>
       <ion-infinite-scroll on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>

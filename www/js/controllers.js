@@ -24,18 +24,17 @@ angular.module('starter.controllers', [])
             var vefified = "";
             $scope.error = "";
             // Perform the login action when the user submits the login form
-            $scope.doLogin = function (user, password) {
+            $scope.doLogin = function (user, motpass) {
                 $ionicLoading.show();
-                $http.get('api/' + 'authentification/' + user + '/' + password).then(function (resp) {
+                $http.get('api/' + 'authentification/' + user + '/' + motpass).then(function (resp) {
                     vefified = resp.data;
                     if (vefified.reponse === 'succes') {
                         $ionicLoading.hide();
-                        $state.go('app.update', {login: user, password: password});
+                        $state.go('app.update', {login: user, password: motpass});
                         $timeout(function () {
                             $scope.closeLogin();
                         }, 1000);
                     } else {
-                        $scope.password = "";
                         $scope.error = "login ou mot de passe incorrect";
                         $ionicLoading.hide();
                     }
@@ -126,17 +125,26 @@ angular.module('starter.controllers', [])
                         console.log('ERR', err);
                     });
                 };
-            }]).controller('ModifierCtrl', ['$scope', '$stateParams', '$log', '$http', 'Villes', '$translate',
-            function ($scope, $stateParams, $log, $http, Villes, $translate) {
+            }]).controller('ModifierCtrl', ['$scope', '$stateParams', '$log', '$http', 'Villes', '$translate', '$ionicPopover',
+            function ($scope, $stateParams, $log, $http, Villes, $translate, $ionicPopover) {
+
                 $scope.login = $stateParams.login;
                 $scope.password = $stateParams.password;
-
-                //recuperation des nom des Categories
+                var idmarcheAgent;
+                //recuperation des nom des Categories 
                 $http.get('/api' + '/categories').then(function (resp) {
                     $scope.categories = resp.data;
                 }, function (err) {
                     console.log('ERR', err);
                 });
+                // recuperation de id du marche
+                $http.get('api/authentification/'+$stateParams.login+'/'+$scope.password).then(function (resp) {
+                    console.log('le chemin '+'api/authentification/'+$stateParams.login+'/'+$scope.password);
+                    idmarcheAgent = resp.data.idMarche;
+                }, function (err) {
+                    console.log('ERR', err);
+                });
+
                 // la fonction qui permet de mettre a jour les produits
                 $scope.produits = "";
                 $scope.data = {"airlines": [], "search": ''};
@@ -160,26 +168,36 @@ angular.module('starter.controllers', [])
                         );
                     };
                 };
+                // le popover
+                $ionicPopover.fromTemplateUrl('/templates/popovermodifier.html', {
+                    scope: $scope
+                }).then(function(popover) {
+                    $scope.popover = popover;
+                });
 
                 // cette fonction permet de mettre a jour le prix d un  produit
                 $scope.element = {"nouveauPrix": '', "etatPrix": '', "produitId": '', "marcheId": ''};
                 $scope.etats = ["Baisse", "Haute"];
                 // la fonction qui met a jour le prix
-                $scope.updatePrice = function (produit) {
-                //
-                $scope.element.marcheId = 1;
-                //
-                $scope.element.produitId = produit.id;
-                //
-                $scope.element.etatPrix = $scope.element.etatPrix;
-                //
-                $http.post('/api'+'/prix/', $scope.element).then(function (resp) {
-                //$http.post('/api' + '/prix/' + $scope.element.etatPrix+'1/1', $scope.element).then(function (resp) {
-                    $scope.success = "prix modifier";
-                }, function (err) {
-                    console.log('ERR', err);
-                });
-        };
+                $scope.updatePrice = function (produit, $event) {
+                    //
+                    $scope.element.marcheId = idmarcheAgent;
+                    //
+                    $scope.element.produitId = produit.id;
+                    //
+                    $scope.element.etatPrix = $scope.element.etatPrix;
+                    //
+                    $http.post('/api'+'/prix/', $scope.element).then(function (resp) {
+                        $scope.popover.show($event);
+                    }, function (err) {
+                        console.log('ERR', err);
+                    });
+                    // la fonction de fermerture du popover
+                    $scope.closePopover = function() {
+                        $scope.popover.hide();
+                    };
+            //
+            };
     }]).controller("AutresprixCtrl", ['$scope', '$stateParams', '$log', '$http', function ($scope, $stateParams, $log, $http) {
         //le controleur qui gere les prix sur les autres marches
         console.log('api ' + $stateParams.idProduit + '/prix/ ' + $stateParams.idVille);
@@ -191,14 +209,49 @@ angular.module('starter.controllers', [])
                 console.log('ERR', err);
             });
         }
-    }]).controller("ActualitesCtrl", ['$scope', '$log',
-     function ($scope, $log) {
-        //ici on gere comment organiser les
+    }]).controller("ActualitesCtrl", ['$scope', '$log', '$http','$ionicPopover',
+     function ($scope, $log, $http,$ionicPopover) {
+        element = {"nom":"","ville":"","dateAvis":"","avis":" "};
+        //le popover pour ajoujer un avis
+        $ionicPopover.fromTemplateUrl('/templates/newsavis.html', {
+            scope: $scope
+        }).then(function(popover) {
+            $scope.popover = popover;
+        });
+        // la fonction d ouverture du popover
+        $scope.openPopover = function($event) {
+            $scope.popover.show($event);
+        };
+        // la fonction de fermerture du popover
+        $scope.closePopover = function() {
+            $scope.popover.hide();
+        };
+        // la fonction qui permet d'ajouter un avis
+        $scope.ajouterAvis = function(element) {
+            $http.post('/api/avis/', element).then(function (resp) {
+            }, function (err) {
+                console.log('ERR', err);
+            });
+            $scope.popover.hide();
+        };
+        //on recupere la liste des avis des clients
+        $http.get('/api'+'/avis/').then(function (resp) {
+            $scope.lesavis = resp.data;
+        }, function (err) {
+            console.log('ERR', err);
+        });
+
         $scope.data = {supprimer:false, montre: false };
-        $scope.moveItem = function (item, $fromIndex, $toIndex) {
-            // body...
+
+        $scope.supprimerElement = function (item) {
+            $scope.lesavis.splice($scope.lesavis.indexOf(item), 1);
         }
         $scope.doRefresh = function (item, $fromIndex, $toIndex) {
+            $http.get('/api'+'/avis/').then(function (resp) {
+                $scope.lesavis = resp.data;
+            }, function (err) {
+                console.log('ERR', err);
+            });
             $scope.$broadcast('scroll.refreshComplete');
         }
         $scope.loadMore = function function_name (argument) {

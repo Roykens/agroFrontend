@@ -125,7 +125,7 @@ angular.module('starter', ['ionic', 'ngResource', 'pascalprecht.translate', 'ngM
                 }
             })
             .state('app.update', {
-                url: '/modifer/:login/password',
+                url: '/modifer/:login/:password',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/modifier.html',

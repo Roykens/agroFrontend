@@ -12,7 +12,7 @@
     <div class="item item-image" >
       <img src="pictures/logo1.png" alt="logo">
     </div>
-    <form ng-submit="doLogin(user, password)">
+    <form ng-submit="doLogin(user, motpass)">
       <div class="row responsive-sm">
         <div class="col">
           <label class="item item-input">
@@ -23,14 +23,14 @@
         <div class="col">
           <label class="item item-input">
             <span class="input-label">password</span>
-            <input type="password" placeholder="Votre mot de passe" ng-model="password">
+            <input type="password" placeholder="Votre mot de passe" ng-model="motpass">
           </label>
         </div>
         <div class="col">
           <font color="red" ng-model="error">{{error}}</font>
         </div>
         <div class="col">
-          <button ng-disabled="!user || !password" class="button button-block button-balanced" type="submit"> 
+          <button ng-disabled="!user || !motpass" class="button button-block button-balanced" type="submit"> 
                <i class="ion-ios-unlocked"></i>
           </button>
         </div>
